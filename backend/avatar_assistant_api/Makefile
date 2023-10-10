@@ -1,3 +1,9 @@
+UVICORN ?= uvicorn 
+
+.PHONY: dev
+dev:
+	$(UVICORN) api.main:app --reload
+
 .PHONY: install
 install:
 	pip install --upgrade pip &&\
