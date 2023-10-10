@@ -15,9 +15,12 @@ jobs:
     - name: Install dependencies
       run: 
         make install
+      working-directory: backend/avatar_assistant_api
     - name: Lint with Ruff
       run: 
         make lint
+      working-directory: backend/avatar_assistant_api
     - name: Format code with Python black
       run: 
         make format
+      working-directory: backend/avatar_assistant_api
