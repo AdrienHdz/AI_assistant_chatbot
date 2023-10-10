@@ -30,4 +30,4 @@ async def get_message(message: str = Query(..., description="message to process"
     openai_response = await get_openai_response(processed_message)
     await get_speech(openai_response)
     wav2lip_response = await get_wav2lip_url()
-    print(wav2lip_response)
+    return {"script_responose": openai_response, "url_response": wav2lip_response}
