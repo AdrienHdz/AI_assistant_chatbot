@@ -5,7 +5,7 @@ class OpenAIChat:
     def __init__(self, AppSettings):
         self.model = AppSettings.openai_model
         self.max_token = AppSettings.max_token
-        self.temperature = 1
+        self.temperature = AppSettings.temperature
         openai.api_key = AppSettings.OPENAI_API_KEY
 
     def get_response_script(self, input_message: str) -> str:

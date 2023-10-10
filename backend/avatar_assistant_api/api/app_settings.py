@@ -8,7 +8,7 @@ class AppSettings(BaseSettings):
 
     ###OpenAi (response script)
     openai_model: str = "gpt-3.5-turbo"
-    max_token: int = 150
+    max_token: int = 100
     temperature: int = 1
 
     ###Elevenlabs (TextToSpeech)
