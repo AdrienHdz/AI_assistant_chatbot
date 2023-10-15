@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 import logging
@@ -24,8 +24,8 @@ app.add_middleware(
 )
 
 
-@app.get("/message")
-async def get_message(message: str = Query(..., description="message to process")):
+@app.get("/get_response/{message}")
+async def get_message(message: str):
     processed_message = message.lower()
     openai_response = await get_openai_response(processed_message)
     await get_speech(openai_response)
