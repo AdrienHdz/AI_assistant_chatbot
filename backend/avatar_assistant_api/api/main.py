@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
 import logging
@@ -7,6 +6,7 @@ from uuid import uuid4
 
 from api.generator.generator import get_openai_response, get_speech, get_wav2lip_url
 from api.cache.cache import ROUTE_CACHING
+from api.models.response_message import MessageRequest
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -25,11 +25,6 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
-
-
-class MessageRequest(BaseModel):
-    message: str
-    session_id: str = None
 
 
 @app.post("/get_response/")
