@@ -5,8 +5,9 @@ import logging
 from uuid import uuid4
 
 from api.generator.generator import get_openai_response, get_speech, get_wav2lip_url
-from api.cache.cache import ROUTE_CACHING
+from api.cache.cache import ROUTE_CACHING, caching_module
 from api.models.response_message import MessageRequest
+
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -25,6 +26,11 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def startup():
+    await caching_module.clear()
 
 
 @app.post("/get_response/")
