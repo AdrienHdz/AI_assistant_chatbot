@@ -17,23 +17,6 @@ interface Message {
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements AfterViewInit {
-  readonly sampleMessages: Message[] = [
-    {
-      text: 'Can anyone help? I have a question about Acme Professional',
-      user: 'User 01',
-      avatar: '../../assets/avatar_profile_pic.png',
-      bgClass: 'bg-white',
-      textColor: 'text-slate-800'
-    },
-    {
-      text: 'Hey Dominik Lamakani 👋<br />Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est 🙌',
-      user: 'User 02',
-      avatar: '../../assets/photo_profil.jpeg',
-      bgClass: 'bg-indigo-500',
-      textColor: '#ffffff'
-    }
-  ];
-
   userMessages: Message[] = [];
   userMessageControl = new FormControl('', [Validators.required, Validators.minLength(1)]);
   uploadForm = new FormGroup({
@@ -61,9 +44,33 @@ export class MessagesComponent implements AfterViewInit {
     event.preventDefault();
     const userMessage = this.uploadForm.value.userMessage;
     if (userMessage) {
-      this.addUserMessage(userMessage);
-      this.dataService.getMessageResponse(userMessage);
-    }
+        this.addUserMessage(userMessage);
+        this.dataService.getMessageResponse(userMessage)
+            .subscribe(response => {
+                this.addServerMessage(response.script_response);
+                this.setVideoSourceAndPlay(response.url_response);
+                console.log(response)
+                this.setFetchingStateDone();  
+            }, error => {
+                console.error('Error fetching server response:', error);
+                this.setFetchingStateDone();  
+            });
+      }
+  }
+
+  setFetchingStateDone() {
+      (this.dataService as any)._fetchingStateMessage.next(FetchingServerState.DONE);
+  }
+
+  addServerMessage(text: string) {
+    const serverMsg: Message = {
+      text: text,
+      user: 'Server',
+      avatar: '../../assets/avatar_profile_pic.png',
+      bgClass: 'bg-white',
+      textColor: 'text-slate-800'
+    };
+    this.userMessages.push(serverMsg);
   }
 
   addUserMessage(text: string) {
@@ -97,7 +104,13 @@ export class MessagesComponent implements AfterViewInit {
 
   onSecondVideoEnded() {
     this.setRandomLoopVideoSource();
+    this.renderer.setStyle(this.secondVideo.nativeElement, 'display', 'none'); 
     this.playLoopVideo();
+  }
+
+  setVideoSourceAndPlay(url: string) {
+    this.renderer.setAttribute(this.secondVideo.nativeElement, 'src', url);
+    this.playSecondVideo();
   }
 
   setRandomLoopVideoSource() {
