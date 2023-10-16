@@ -45,6 +45,7 @@ export class MessagesComponent implements AfterViewInit {
     const userMessage = this.uploadForm.value.userMessage;
     if (userMessage) {
         this.addUserMessage(userMessage);
+        this.uploadForm.controls['userMessage'].setValue('')
         this.dataService.getMessageResponse(userMessage)
             .subscribe(response => {
                 this.addServerMessage(response.script_response);
