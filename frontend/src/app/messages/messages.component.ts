@@ -50,6 +50,7 @@ export class MessagesComponent implements AfterViewInit {
                 this.addServerMessage(response.script_response);
                 this.setVideoSourceAndPlay(response.url_response);
                 console.log(response)
+                this.dataService.currentSessionId = response.session_id;
                 this.setFetchingStateDone();  
             }, error => {
                 console.error('Error fetching server response:', error);
