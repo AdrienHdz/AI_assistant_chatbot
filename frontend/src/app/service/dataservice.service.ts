@@ -23,21 +23,12 @@ export class DataService {
 
   constructor(private HttpClient: HttpClient) {  }
 
-  getMessageResponse(userMessage: string): void {
-    console.log("Sending data to server")
-    this._fetchingStateMessage.next(FetchingServerState.FETCHING)
-    this.HttpClient.get(this.api_server+'/get_response/'+userMessage).subscribe({
-      next: (data: any) => {
-        console.log(data);
-        this._server_response.next(data);
-        this._fetchingStateMessage.next(FetchingServerState.DONE);
-      },
-      error: (err: any) => {
-        console.error("Failed to get message response:", err);
-        this._fetchingStateMessage.next(FetchingServerState.DONE);
-      }
-    });
+  getMessageResponse(userMessage: string): Observable<any> {
+    console.log("Sending data to server");
+    this._fetchingStateMessage.next(FetchingServerState.FETCHING);
     
-  }
+    return this.HttpClient.post(this.api_server + '/get_response', { message: userMessage });
+}
+
 
 }
