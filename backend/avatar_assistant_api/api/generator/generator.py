@@ -4,9 +4,10 @@ from api.generator.wav2lip import Wav2LipClientRunner
 from api.app_settings import AppSettings
 
 
-async def get_openai_response(input_message: str) -> str:
+async def get_openai_response(session_id: str, input_message: str) -> str:
     response = OpenAIChat(AppSettings=AppSettings()).get_response_script(
-        input_message=input_message
+        session_id=session_id,
+        input_message=input_message,
     )
     return response
 
