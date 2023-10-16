@@ -2,6 +2,7 @@ fastapi==0.96.0
 fastapi_cache2
 redis
 aioredis
+cashews
 uvicorn[standard]
 pre-commit
 
