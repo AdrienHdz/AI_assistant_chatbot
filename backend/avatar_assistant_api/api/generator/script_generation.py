@@ -1,5 +1,7 @@
 import openai
 
+from api.cache.redis_helper import RedisHelper
+
 
 class OpenAIChat:
     def __init__(self, AppSettings):
@@ -8,7 +10,14 @@ class OpenAIChat:
         self.temperature = AppSettings.temperature
         openai.api_key = AppSettings.OPENAI_API_KEY
 
-    def get_response_script(self, input_message: str) -> str:
+    def get_response_script(self, session_id: str, input_message: str) -> str:
+        redis_helper = RedisHelper()
+
+        # Check if a response for this session_id already exists in Redis
+        prev_response = redis_helper.get(session_id)
+
+        print(f"REDIS PREV_RESPONSE: {prev_response}")
+
         response = openai.ChatCompletion.create(
             model=self.model,
             max_tokens=self.max_token,
@@ -24,4 +33,12 @@ class OpenAIChat:
             ],
         )
         response = response["choices"][0]["message"]["content"]
+
+        # Store previous response in Redis
+        redis_helper.set(session_id, response)
+
+        # If a previous response exists, print the latest response (optional, based on your requirements)
+        if prev_response:
+            redis_helper.print_latest_content(session_id)
+
         return response
