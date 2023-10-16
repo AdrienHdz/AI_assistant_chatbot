@@ -16,25 +16,32 @@ class OpenAIChat:
         # Check if a response for this session_id already exists in Redis
         prev_response = redis_helper.get(session_id)
 
-        print(f"REDIS PREV_RESPONSE: {prev_response}")
+        messages = [
+            {
+                "role": "system",
+                "content": """You are a customer service representative of Cymbal.
+                            Here is Cymbal policy: How many days do I have to return my purchase?
+                            We offer free returns and exchanges within 30 days of your delivery, 
+                            with exceptions as described in our Returns Policy. 
+                            Certain items are designated as final sale and not eligible for returns or exchanges. 
+                            All on-sale purchases are final.""",
+            },
+            {"role": "user", "content": input_message},
+        ]
+
+        # Append the previous response to the messages if it exists
+        if prev_response:
+            messages.append({"role": "assistant", "content": prev_response})
 
         response = openai.ChatCompletion.create(
             model=self.model,
             max_tokens=self.max_token,
             temperature=self.temperature,
-            messages=[
-                {
-                    "role": "system",
-                    "content": """You are a customer service representative of Cymbal.
-                                                 Here is Cymbal policy: How many days do I have to return my purchase?
-                                                 We offer free returns and exchanges within 30 days of your delivery, with exceptions as described in our Returns Policy. Certain items are designated as final sale and not eligible for returns or exchanges. All on-sale purchases are final.""",
-                },
-                {"role": "user", "content": input_message},
-            ],
+            messages=messages,
         )
         response = response["choices"][0]["message"]["content"]
 
-        # Store previous response in Redis
+        # Store the latest response in Redis
         redis_helper.set(session_id, response)
 
         # If a previous response exists, print the latest response (optional, based on your requirements)
