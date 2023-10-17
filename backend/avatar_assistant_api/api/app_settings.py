@@ -5,10 +5,15 @@ class AppSettings(BaseSettings):
     OPENAI_API_KEY: str
     REPLICATE_API_TOKEN: str
     ELEVENLABS_API_KEY: str
+    GCP_PROJECT_ID: str
+    VERTEXAI_LOCATION: str
 
     ###Redis
     redis_port: int = 6379
     host: str = "redis"
+
+    ###VertexAI
+    pretrained_model_name: str = "chat-bison"
 
     ###OpenAi (response script)
     openai_model: str = "gpt-3.5-turbo"
