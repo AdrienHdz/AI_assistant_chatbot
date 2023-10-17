@@ -28,7 +28,7 @@ class AppSettings(BaseSettings):
     chunk_size: int = 1024
 
     ###Replicate (Wav2Lip)
-    input_video_path: str = "input_video2.mp4"
+    input_video_path: str = "input_video_SD.mp4"
     input_audio_path: str = "generated_speech.mp3"
     replicate_model_id: str = "devxpy/cog-wav2lip:8d65e3f4f4298520e079198b493c25adfc43c058ffec924f2aefc8010ed25eef"
 
