@@ -11,3 +11,4 @@ ruff
 
 openai
 replicate
+google-cloud-aiplatform
