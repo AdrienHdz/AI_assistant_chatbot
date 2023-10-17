@@ -28,6 +28,7 @@ export class MessagesComponent implements AfterViewInit {
 
   @ViewChild('loopVideo') loopVideo!: ElementRef<HTMLVideoElement>;
   @ViewChild('secondVideo') secondVideo!: ElementRef<HTMLVideoElement>;
+  @ViewChild('messageContainer') messageContainer!: ElementRef;
 
   constructor(
     private dataService: DataService,
@@ -73,6 +74,9 @@ export class MessagesComponent implements AfterViewInit {
       textColor: 'text-slate-800'
     };
     this.userMessages.push(serverMsg);
+    setTimeout(() => {
+      this.scrollToBottom();
+    });
   }
 
   addUserMessage(text: string) {
@@ -84,7 +88,9 @@ export class MessagesComponent implements AfterViewInit {
       textColor: '#FFFFFF'
     };
     this.userMessages.push(userMsg);
-
+    setTimeout(() => {
+      this.scrollToBottom();
+    });
   }
 
   ngAfterViewInit() {
@@ -126,6 +132,12 @@ export class MessagesComponent implements AfterViewInit {
     const loopVideoSource = this.renderer.selectRootElement('#loopVideoSource');
     this.renderer.setAttribute(loopVideoSource, 'src', selectedVideo);
     this.loopVideo.nativeElement.load();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+    } catch (err) { }
   }
 
   ngOnDestroy() {
