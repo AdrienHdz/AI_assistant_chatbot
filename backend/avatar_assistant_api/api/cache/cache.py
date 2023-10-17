@@ -1,18 +1,5 @@
-import importlib
-
 from api.app_settings import AppSettings
-
-
-def default_function(*args, **options):
-    def decorator(fn):
-        return fn
-
-    return decorator
-
-
-caching_module = None
-is_cache_enabled = False
-ROUTE_CACHING = None
+from cashews import cache, Cache as CacheConfigurator  # noqa: F401
 
 
 def initialize_caching(AppSettings):
@@ -27,15 +14,6 @@ def initialize_caching(AppSettings):
     return cache_instance
 
 
-try:
-    caching_module = importlib.import_module("cashews").cache
-    CacheConfigurator = importlib.import_module("cashews").Cache
-    is_cache_enabled = True
-
-except ImportError:
-    caching_module = default_function
-
-else:
-    caching_module = initialize_caching(AppSettings())
-
+is_cache_enabled = True
+caching_module = initialize_caching(AppSettings())
 ROUTE_CACHING = caching_module
