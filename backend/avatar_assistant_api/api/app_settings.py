@@ -6,6 +6,10 @@ class AppSettings(BaseSettings):
     REPLICATE_API_TOKEN: str
     ELEVENLABS_API_KEY: str
 
+    ###Redis
+    redis_port: int = 6379
+    host: str = "redis"
+
     ###OpenAi (response script)
     openai_model: str = "gpt-3.5-turbo"
     max_token: int = 50

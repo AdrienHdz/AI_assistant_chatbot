@@ -2,7 +2,7 @@ from redis import Redis
 
 
 class RedisHelper:
-    def __init__(self, host="redis", port=6379):
+    def __init__(self, host: str, port: int):
         self.client = Redis(host=host, port=port)
 
     def get(self, key):
@@ -18,4 +18,4 @@ class RedisHelper:
     def print_latest_content(self, session_id):
         value = self.get(session_id)
         if value:
-            print(f"PRINTING FROM REDIS {session_id, value}")
+            print(session_id, value)

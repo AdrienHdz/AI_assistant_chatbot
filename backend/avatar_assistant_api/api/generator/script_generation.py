@@ -8,10 +8,12 @@ class OpenAIChat:
         self.model = AppSettings.openai_model
         self.max_token = AppSettings.max_token
         self.temperature = AppSettings.temperature
+        self.redis_port = AppSettings.redis_port
+        self.host = AppSettings.host
         openai.api_key = AppSettings.OPENAI_API_KEY
 
     def get_response_script(self, session_id: str, input_message: str) -> str:
-        redis_helper = RedisHelper()
+        redis_helper = RedisHelper(host=self.host, port=self.redis_port)
 
         # Check if a response for this session_id already exists in Redis
         prev_response = redis_helper.get(session_id)

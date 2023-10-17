@@ -15,12 +15,14 @@ is_cache_enabled = False
 ROUTE_CACHING = None
 
 
-def initialize_caching(config):
+def initialize_caching(AppSettings):
+    host = AppSettings.host
+    port = AppSettings.redis_port
     cache_instance = CacheConfigurator()
     params = {
         "socket_timeout": 0.5,
     }
-    connection_string = "redis://redis:6379"
+    connection_string = f"{host}://{host}:{port}"
     cache_instance.setup(connection_string, **params)
     return cache_instance
 
