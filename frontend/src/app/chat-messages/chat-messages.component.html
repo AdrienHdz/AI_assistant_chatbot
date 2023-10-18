@@ -1,10 +1,11 @@
 <div class="message-item flex items-start mb-4 last:mb-0">
-    <img class="rounded-full mr-4" [src]="message.avatar" width="40" height="40" [alt]="message.user" />
-    <div class="max-w-[480px]">
-      <div class="text-sm p-3 rounded-lg rounded-tl-none border border-transparent shadow-md mb-1 overflow-auto break-words" 
-           [ngClass]="message.bgClass" 
-           [ngStyle]="{'color': message.textColor}" 
-           [innerHTML]="message.text">
-      </div>
+  <img class="rounded-full mr-4" [src]="message.avatar" width="40" height="40" [alt]="message.user" />
+  <div class="max-w-[480px]">
+    <div class="text-sm p-3 rounded-lg rounded-tl-none border border-transparent shadow-md mb-1 overflow-auto break-words" 
+         [ngClass]="message.bgClass" 
+         [ngStyle]="{'color': message.textColor}" 
+         [innerHTML]="message.text">
     </div>
+    <div class="message-username text-xs mt-1 font-semibold text-gray-500">{{message.user}}</div>
+  </div>
 </div>

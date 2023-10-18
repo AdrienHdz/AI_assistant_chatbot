@@ -68,7 +68,7 @@ export class MessagesComponent implements AfterViewInit {
   addServerMessage(text: string) {
     const serverMsg: Message = {
       text: text,
-      user: 'Server',
+      user: 'Lexi',
       avatar: '../../assets/avatar_profile_pic.png',
       bgClass: 'bg-white',
       textColor: 'text-slate-800'
@@ -82,7 +82,7 @@ export class MessagesComponent implements AfterViewInit {
   addUserMessage(text: string) {
     const userMsg: Message = {
       text: text,
-      user: 'Current User',
+      user: 'Adrien',
       avatar: '../../assets/photo_profil.jpg',
       bgClass: 'bg-indigo-500',
       textColor: '#FFFFFF'
