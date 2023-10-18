@@ -83,7 +83,7 @@ export class MessagesComponent implements AfterViewInit {
     const userMsg: Message = {
       text: text,
       user: 'Current User',
-      avatar: '../../assets/photo_profil.jpeg',
+      avatar: '../../assets/photo_profil.jpg',
       bgClass: 'bg-indigo-500',
       textColor: '#FFFFFF'
     };
