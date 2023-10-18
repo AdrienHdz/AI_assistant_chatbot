@@ -14,11 +14,17 @@ class AppSettings(BaseSettings):
 
     ###VertexAI
     pretrained_model_name: str = "chat-bison"
+    vertexai_candidate_count: int = 1
+    vertexai_max_token: int = 100
+    vertexai_temperature: int = 1
+    vertexai_top_p: float = 0.8
+    vertexai_top_k: int = 40
 
     ###OpenAi (response script)
     openai_model: str = "gpt-3.5-turbo"
-    max_token: int = 100
-    temperature: int = 1
+    openai_model_finetuned: str = "ft:gpt-3.5-turbo-0613:personal::xxxxxxxx"
+    openai_max_token: int = 100
+    openai_temperature: int = 1
 
     ###Elevenlabs (TextToSpeech)
     elevenlabs_voice_id: str = "XrExE9yKIg1WjnnlVkGX"

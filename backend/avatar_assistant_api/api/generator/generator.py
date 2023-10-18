@@ -1,4 +1,4 @@
-from api.generator.script_generation import OpenAIChat
+from api.generator.script_generation import OpenAIChat, VertexAIChat  # noqa: F401
 from api.generator.text_to_speech import TextToSpeech
 from api.generator.wav2lip import Wav2LipClientRunner
 from api.app_settings import AppSettings
