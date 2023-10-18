@@ -23,8 +23,7 @@ This will allow the backend running inside the Docker container to use these cre
 
 ## Use docker-compose to run the project 
 
-Ensure that you have both Docker and docker-compose installed on your system:
-I'm using a Builtkit in the backend Dockerfile. You must therefore active the correspond environment variables to build the docker images.
+Ensure that you have both Docker and docker-compose installed on your system. I'm using Builtkit in the backend Dockerfile. Therefore, you must activate the corresponding environment variables to build the Docker images.
  ```sh
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
