@@ -12,6 +12,9 @@ services:
       - "APP_ELEVENLABS_API_KEY=${APP_ELEVENLABS_API_KEY}"
       - "APP_GCP_PROJECT_ID=${APP_GCP_PROJECT_ID}"
       - "APP_VERTEXAI_LOCATION=${APP_VERTEXAI_LOCATION}"
+      - "GOOGLE_APPLICATION_CREDENTIALS=/app/application_default_credentials.json"
+    volumes:
+    - ~/.config/gcloud/application_default_credentials.json:/app/application_default_credentials.json
     depends_on:
       - redis
   redis:
